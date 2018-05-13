@@ -29,7 +29,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 	/// <summary>
 	/// Creates TextFormatter instances that with the correct TextFormattingMode, if running on .NET 4.0.
 	/// </summary>
-	static class TextFormatterFactory
+	public static class TextFormatterFactory
 	{
 		#if !DOTNET4
 		readonly static DependencyProperty TextFormattingModeProperty;

@@ -383,7 +383,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			
 			TextLine textLine = visualLine.GetTextLine(position.VisualColumn, position.IsAtEndOfLine);
 			double xPos = visualLine.GetTextLineVisualXPosition(textLine, position.VisualColumn);
-			double lineTop = visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.TextTop);
+			double lineTop = visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.LineTop);
 			double lineBottom = visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.TextBottom);
 			
 			return new Rect(xPos,

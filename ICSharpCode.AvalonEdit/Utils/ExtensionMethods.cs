@@ -26,7 +26,7 @@ using System.Xml;
 
 namespace ICSharpCode.AvalonEdit.Utils
 {
-	static class ExtensionMethods
+	public static class ExtensionMethods
 	{
 		#region Epsilon / IsClose / CoerceValue
 		/// <summary>

@@ -487,7 +487,8 @@ namespace ICSharpCode.AvalonEdit
 		{
 			TextEditor editor = (TextEditor)d;
 			var leftMargins = editor.TextArea.LeftMargins;
-			if ((bool)e.NewValue) {
+			if ((bool)e.NewValue)
+			{
 				LineNumberMargin lineNumbers = new LineNumberMargin();
 				Line line = (Line)DottedLineMargin.Create();
 				leftMargins.Insert(0, lineNumbers);
@@ -495,25 +496,80 @@ namespace ICSharpCode.AvalonEdit
 				var lineNumbersForeground = new Binding("LineNumbersForeground") { Source = editor };
 				line.SetBinding(Line.StrokeProperty, lineNumbersForeground);
 				lineNumbers.SetBinding(Control.ForegroundProperty, lineNumbersForeground);
-			} else {
-				for (int i = 0; i < leftMargins.Count; i++) {
-					if (leftMargins[i] is LineNumberMargin) {
+			}
+			else
+			{
+				for (int i = 0; i < leftMargins.Count; i++)
+				{
+					if (leftMargins[i] is LineNumberMargin)
+					{
 						leftMargins.RemoveAt(i);
-						if (i < leftMargins.Count && DottedLineMargin.IsDottedLineMargin(leftMargins[i])) {
+						if (i < leftMargins.Count && DottedLineMargin.IsDottedLineMargin(leftMargins[i]))
+						{
 							leftMargins.RemoveAt(i);
 						}
 						break;
 					}
 				}
 			}
-		}
-		#endregion
-		
-		#region LineNumbersForeground
+				}
+#endregion
+#region ShowSideMenu
+				/// <summary>
+				/// ShowLineNumbers dependency property.
+				/// </summary>
+				public static readonly DependencyProperty ShowSideMenuProperty =
+			DependencyProperty.Register("ShowSideMenu", typeof(bool), typeof(TextEditor),
+				new FrameworkPropertyMetadata(Boxes.False, OnShowSideMenuChanged));
+
 		/// <summary>
-		/// LineNumbersForeground dependency property.
+		/// Specifies whether line numbers are shown on the left to the text view.
 		/// </summary>
-		public static readonly DependencyProperty LineNumbersForegroundProperty =
+		public bool ShowSideMenu
+				{
+			get { return (bool)GetValue(ShowSideMenuProperty); }
+			set { SetValue(ShowSideMenuProperty, Boxes.Box(value)); }
+		}
+
+		public SideMenuMargin SideMenuMargin;
+		static void OnShowSideMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+		
+			TextEditor editor = (TextEditor)d;
+			var leftMargins = editor.TextArea.LeftMargins;
+			if ((bool)e.NewValue)
+			{
+				editor.SideMenuMargin = new SideMenuMargin();
+				//Line line = (Line)DottedLineMargin.Create();
+				leftMargins.Insert(0, editor.SideMenuMargin);
+				//leftMargins.Insert(1, line);
+				var lineNumbersForeground = new Binding("LineNumbersForeground") { Source = editor };
+								//	line.SetBinding(Line.StrokeProperty, lineNumbersForeground);
+				editor.SideMenuMargin.SetBinding(Control.ForegroundProperty, lineNumbersForeground);
+			}
+			else
+			{
+				for (int i = 0; i < leftMargins.Count; i++)
+				{
+					if (leftMargins[i] is SideMenuMargin)
+					{
+						editor.SideMenuMargin = null;
+						leftMargins.RemoveAt(i);
+						//if (i < leftMargins.Count && DottedLineMargin.IsDottedLineMargin(leftMargins[i])) {
+						//	leftMargins.RemoveAt(i);
+						//}
+						break;
+					}
+				}
+			}
+				}
+
+				#endregion
+		#region LineNumbersForeground
+				/// <summary>
+				/// LineNumbersForeground dependency property.
+				/// </summary>
+				public static readonly DependencyProperty LineNumbersForegroundProperty =
 			DependencyProperty.Register("LineNumbersForeground", typeof(Brush), typeof(TextEditor),
 			                            new FrameworkPropertyMetadata(Brushes.Gray, OnLineNumbersForegroundChanged));
 		
