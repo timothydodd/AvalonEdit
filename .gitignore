@@ -6,3 +6,5 @@ bin/
 /packages/AvalonEdit.Sample
 /packages/NUnit.2.6.3
 /Documentation/IntelliSense
+/.vs/ICSharpCode.AvalonEdit/v16/Server/sqlite3/db.lock
+/.vs/ICSharpCode.AvalonEdit/v16/Server/sqlite3/storage.ide
